@@ -22,6 +22,7 @@ const Login = () => {
             <View>
               <TextInput
                 style={styles.username}
+                textAlign={"center"}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -34,10 +35,14 @@ const Login = () => {
                 value={values.password}
               />
               <Pressable style={styles.login}>
-              <Button
-                onPress={handleSubmit}
-                title="Submit"
-              />
+                <Button
+                  onPress={handleSubmit}
+                  title="Submit"
+                  textAlign={"center"}
+                />
+              </Pressable>
+              <Pressable>
+                <Button title="Not Registered?"></Button>
               </Pressable>
             </View>
           )}
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
     height: 250,
   },
   username: {
+    padding: 5,
     height: 50,
     borderWidth: 2,
     borderRadius: 10,
@@ -67,6 +73,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 10,
+    margin: 5,
+  },
+  registerLink: {
     margin: 5,
   },
 });
