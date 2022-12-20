@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import Register from "./Register";
 import { Formik } from "formik";
-const Login = () => {
+const Login = ({navigation}) => {
   return (
-    <SafeAreaView>
-      <View>
+    <SafeAreaView style={styles.container}>
+      <View >
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
@@ -61,7 +61,10 @@ const Login = () => {
                 <Text style={styles.forgottenText}>Forgot Password?</Text>
               </Pressable>
               <Pressable style={styles.registerLink}>
-                <Text style={styles.registerText}>
+                <Text 
+                style={styles.registerText}
+                onPress={() =>
+                  navigation.navigate('Register')}>
                   Not Registered? Press Here
                 </Text>
               </Pressable>
@@ -73,14 +76,20 @@ const Login = () => {
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "black",
+  },
   logo: {
     width: 250,
-    height: 250,
+    height: 200,
     marginBottom: 30,
   },
   username: {
     padding: 5,
-    height: 50,
+    height: 40,
     width: 240,
     borderWidth: 2,
     borderRadius: 25,
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   password: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   login: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   registerLink: {
-    bottom: -130,
+    bottom: -100,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -136,4 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+
+
 export default Login;

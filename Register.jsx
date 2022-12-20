@@ -13,7 +13,7 @@ import { Formik } from "formik";
 
 const Register = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
 
@@ -131,9 +131,15 @@ const Register = () => {
 export default Register;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "black",
+  },
   username: {
     padding: 5,
-    height: 50,
+    height: 40,
     width: 240,
     borderWidth: 2,
     borderRadius: 25,
@@ -144,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   password: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
@@ -156,11 +162,13 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 250,
-    height: 250,
-    marginBottom: 30,
+    height: 200,
+    marginBottom: 20,
+    justifyContent: "center",
+    textAlign: "center",
   },
   register: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
