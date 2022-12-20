@@ -1,4 +1,5 @@
 import React from "react";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
   View,
   Image,
@@ -9,6 +10,7 @@ import {
   Pressable,
   Text,
 } from "react-native";
+import Register from "./Register";
 import { Formik } from "formik";
 const Login = () => {
   return (
@@ -46,7 +48,12 @@ const Login = () => {
                 style={styles.login}
                 textAlign={"center"}
               >
-                <Text onPress={handleSubmit} type="submit" style={styles.loginText} title="Login">
+                <Text
+                  onPress={handleSubmit}
+                  type="submit"
+                  style={styles.loginText}
+                  title="Login"
+                >
                   Login
                 </Text>
               </Pressable>
@@ -101,7 +108,7 @@ const styles = StyleSheet.create({
 
   forgottenText: {
     color: "white",
-    fontSize:14,
+    fontSize: 14,
   },
   login: {
     height: 50,
