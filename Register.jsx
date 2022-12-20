@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from '@react-navigation/native';
 import {
   View,
   Image,
@@ -10,9 +11,9 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
 
@@ -37,7 +38,7 @@ const Register = () => {
                 onBlur={handleBlur("firstName")}
                 value={values.firstName}
                 placeholder="First Name..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -47,7 +48,7 @@ const Register = () => {
                 onBlur={handleBlur("lastName")}
                 value={values.lastName}
                 placeholder="Last Name..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -57,7 +58,7 @@ const Register = () => {
                 onBlur={handleBlur("username")}
                 value={values.username}
                 placeholder="Username..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -67,7 +68,7 @@ const Register = () => {
                 onBlur={handleBlur("email")}
                 value={values.email}
                 placeholder="Email..."
-                maxLength={10}
+                maxLength={254}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -77,7 +78,7 @@ const Register = () => {
                 onBlur={handleBlur("phone")}
                 value={values.phone}
                 placeholder="Phone Number..."
-                maxLength={10}
+                maxLength={15}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -88,7 +89,7 @@ const Register = () => {
                 placeholderTextColor={"white"}
                 secureTextEntry={true}
                 placeholder="Password"
-                maxLength={10}
+                maxLength={12}
               />
               <TextInput
                 style={styles.password}
@@ -98,7 +99,7 @@ const Register = () => {
                 placeholderTextColor={"white"}
                 secureTextEntry={true}
                 placeholder="Confirm Password"
-                maxLength={10}
+                maxLength={12}
               />
               <Pressable
                 onPress={handleSubmit}
@@ -115,7 +116,8 @@ const Register = () => {
                 </Text>
               </Pressable>
               <Pressable style={styles.loginLink}>
-                <Text style={styles.loginText}>
+                <Text style={styles.loginText} onPress={() =>
+                  navigation.navigate('Login')}>
                   Already Registered?
                 </Text>
               </Pressable>
@@ -130,9 +132,15 @@ const Register = () => {
 export default Register;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "black",
+  },
   username: {
     padding: 5,
-    height: 50,
+    height: 40,
     width: 240,
     borderWidth: 2,
     borderRadius: 25,
@@ -143,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   password: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
@@ -155,11 +163,13 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 250,
-    height: 250,
-    marginBottom: 30,
+    height: 200,
+    marginBottom: 20,
+    justifyContent: "center",
+    textAlign: "center",
   },
   register: {
-    height: 50,
+    height: 40,
     borderWidth: 2,
     borderRadius: 25,
     marginBottom: 15,
@@ -180,6 +190,7 @@ const styles = StyleSheet.create({
   loginText: {
     color: "white",
     fontSize: 16,
+    alignItems: 'center',
     justifyContent: "center",
   },
 });
