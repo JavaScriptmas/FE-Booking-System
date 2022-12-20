@@ -41,14 +41,22 @@ const Login = () => {
                 placeholder="password..."
                 maxLength={10}
               />
-              {/* <Pressable>
-                <Text style={styles.forgotten} color={"white"} title="Fjnefjnfej?" />
-              </Pressable> */}
-              <Pressable style={styles.login} textAlign={"center"}>
-                <Button color={"black"} onPress={handleSubmit} title="Login" />
+              <Pressable
+                onPress={handleSubmit}
+                style={styles.login}
+                textAlign={"center"}
+              >
+                <Text style={styles.loginText} title="Login">
+                  Login
+                </Text>
               </Pressable>
-              <Pressable>
-                <Button color={"white"} title="Not Registered? Press Here"></Button>
+              <Pressable style={styles.forgottenLink}>
+                <Text style={styles.forgottenText}>Forgot Password?</Text>
+              </Pressable>
+              <Pressable style={styles.registerLink}>
+                <Text style={styles.registerText}>
+                  Not Registered? Press Here
+                </Text>
               </Pressable>
             </View>
           )}
@@ -86,9 +94,14 @@ const styles = StyleSheet.create({
     width: 240,
     fontSize: 20,
   },
-  forgotten: {
-    color:"white",
-    backgroundColor:'red'
+  forgottenLink: {
+    alignItems: "center",
+    marginBottom: 10,
+  },
+
+  forgottenText: {
+    color: "white",
+    fontSize:14,
   },
   login: {
     height: 50,
@@ -99,11 +112,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: 240,
-    fontSize: 20,
     backgroundColor: "white",
+  },
+  loginText: {
+    fontSize: 20,
   },
   registerLink: {
     margin: 10,
+    position: "absolute",
+    bottom: -130,
+    left: 20,
+
+  },
+
+  registerText: {
+    color: "white",
+    fontSize: 16,
   },
 });
 export default Login;
