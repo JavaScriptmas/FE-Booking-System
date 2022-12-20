@@ -118,16 +118,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   registerLink: {
-    margin: 10,
-    position: "absolute",
     bottom: -130,
-    left: 20,
-
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   registerText: {
     color: "white",
     fontSize: 16,
+    justifyContent: "center",
   },
 });
 export default Login;
