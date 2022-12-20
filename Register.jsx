@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -116,7 +116,8 @@ const Register = () => {
                 </Text>
               </Pressable>
               <Pressable style={styles.loginLink}>
-                <Text style={styles.loginText}>
+                <Text style={styles.loginText} onPress={() =>
+                  navigation.navigate('Login')}>
                   Already Registered?
                 </Text>
               </Pressable>
