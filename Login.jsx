@@ -16,7 +16,7 @@ const Login = () => {
       <View>
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ username: "", password: "" }}
           onSubmit={(values) => console.log(values)}
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -46,7 +46,7 @@ const Login = () => {
                 style={styles.login}
                 textAlign={"center"}
               >
-                <Text style={styles.loginText} title="Login">
+                <Text onPress={handleSubmit} type="submit" style={styles.loginText} title="Login">
                   Login
                 </Text>
               </Pressable>
