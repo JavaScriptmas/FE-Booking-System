@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from '@react-navigation/native';
 import {
   View,
   Image,
@@ -37,7 +38,7 @@ const Register = () => {
                 onBlur={handleBlur("firstName")}
                 value={values.firstName}
                 placeholder="First Name..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -47,7 +48,7 @@ const Register = () => {
                 onBlur={handleBlur("lastName")}
                 value={values.lastName}
                 placeholder="Last Name..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -57,7 +58,7 @@ const Register = () => {
                 onBlur={handleBlur("username")}
                 value={values.username}
                 placeholder="Username..."
-                maxLength={10}
+                maxLength={20}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -67,7 +68,7 @@ const Register = () => {
                 onBlur={handleBlur("email")}
                 value={values.email}
                 placeholder="Email..."
-                maxLength={10}
+                maxLength={254}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -77,7 +78,7 @@ const Register = () => {
                 onBlur={handleBlur("phone")}
                 value={values.phone}
                 placeholder="Phone Number..."
-                maxLength={10}
+                maxLength={15}
                 placeholderTextColor={"white"}
               />
               <TextInput
@@ -88,7 +89,7 @@ const Register = () => {
                 placeholderTextColor={"white"}
                 secureTextEntry={true}
                 placeholder="Password"
-                maxLength={10}
+                maxLength={12}
               />
               <TextInput
                 style={styles.password}
@@ -98,7 +99,7 @@ const Register = () => {
                 placeholderTextColor={"white"}
                 secureTextEntry={true}
                 placeholder="Confirm Password"
-                maxLength={10}
+                maxLength={12}
               />
               <Pressable
                 onPress={handleSubmit}
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
   loginText: {
     color: "white",
     fontSize: 16,
+    alignItems: 'center',
     justifyContent: "center",
   },
 });
