@@ -11,8 +11,12 @@ import {
   Text,
   Alert,
 } from "react-native";
-import Register from "./Register";
 import { Formik } from "formik";
+import { postUser } from "./api.js";
+
+
+
+
 const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -20,15 +24,13 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => Alert.alert(JSON.stringify(values))}
-          validationSchema={yup.object().shape({
-            username: yup.string().required("Please provide a valid username"),
-            password: yup
-              .string()
-              .min(4)
-              .max(10)
-              .required("Please enter your password"),
-          })}
+          userLogin
+          onSubmit={(values) =>
+            postUser(values.username, values.password).then(() => {
+              navigation.navigate("Browse");
+            })
+          }
+
         >
           {({
             handleChange,
@@ -48,6 +50,7 @@ const Login = ({ navigation }) => {
                 placeholder="username..."
                 maxLength={10}
                 placeholderTextColor={"white"}
+                autoCapitalize='none'
               />
                 {touched.username && errors.username && (
                   <Text style={styles.errors}>{errors.username}</Text>

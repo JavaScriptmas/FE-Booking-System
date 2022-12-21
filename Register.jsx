@@ -16,7 +16,6 @@ import { Formik } from "formik";
 const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
         <View>
           <Image style={styles.logo} source={require("./assets/Barber.png")} />
           <Formik
@@ -34,23 +33,27 @@ const Register = ({ navigation }) => {
               firstName: yup
                 .string()
                 .required("Please, provide your first name"),
-              lastName: yup
-                .string()
-                .required("Please, provide your last name"),
+              lastName: yup.string().required("Please, provide your last name"),
               username: yup.string().required("Please, provide your username"),
-              email: yup.string().email().required("Please, provide your email"),
+              email: yup
+                .string()
+                .email()
+                .required("Please, provide your email"),
               phone: yup.number().required("Please, provide your number"),
               password: yup
                 .string()
                 .min(4)
                 .max(10, "Password should not excced 10 chars.")
-                .required( "Please provide your password"),
+                .required("Please provide your password"),
               confirmPassword: yup
                 .string()
                 .min(4)
                 .max(10, "Password should not excced 10 chars.")
-                .required( "Please confirm your password")
-                .oneOf([yup.ref('password'), null], 'Must match "password" field value')
+                .required("Please confirm your password")
+                .oneOf(
+                  [yup.ref("password"), null],
+                  'Must match "password" field value'
+                ),
             })}
           >
             {({
@@ -125,7 +128,7 @@ const Register = ({ navigation }) => {
                   placeholderTextColor={"white"}
                   keyboardType="number-pad"
                 />
-                  {touched.phone && errors.phone && (
+                {touched.phone && errors.phone && (
                   <Text style={styles.errors}>{errors.phone}</Text>
                 )}
                 <TextInput
@@ -138,7 +141,7 @@ const Register = ({ navigation }) => {
                   placeholder="Password"
                   maxLength={12}
                 />
-                  {touched.password && errors.password && (
+                {touched.password && errors.password && (
                   <Text style={styles.errors}>{errors.password}</Text>
                 )}
                 <TextInput
@@ -151,7 +154,7 @@ const Register = ({ navigation }) => {
                   placeholder="Confirm Password"
                   maxLength={12}
                 />
-                  {touched.confirmPassword && errors.confirmPassword && (
+                {touched.confirmPassword && errors.confirmPassword && (
                   <Text style={styles.errors}>{errors.confirmPassword}</Text>
                 )}
                 <Pressable
@@ -180,7 +183,6 @@ const Register = ({ navigation }) => {
             )}
           </Formik>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
