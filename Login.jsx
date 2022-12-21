@@ -13,6 +13,9 @@ import {
 import { Formik } from "formik";
 import { postUser } from "./api.js";
 
+
+
+
 const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -20,7 +23,8 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => postUser(values.username, values.password)} 
+          onSubmit={(values) => postUser(values.username, values.password).then(navigation.navigate("Browse"))
+          }
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View>
