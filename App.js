@@ -21,11 +21,9 @@ export default function App() {
           options={{
             headerShown: false,
             tabBarStyle: { display: "none" },
-
             tabBarLabelStyle: { fontSize: 14 },
             tabBarStyle: {
               backgroundColor: "black",
-              height: 55,
               paddingTop: 5,
             },
             tabBarActiveTintColor: "white",
@@ -46,7 +44,6 @@ export default function App() {
             tabBarLabelStyle: { fontSize: 14 },
             tabBarStyle: {
               backgroundColor: "black",
-              height: 55,
               paddingTop: 5,
             },
             tabBarActiveTintColor: "white",
