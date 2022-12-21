@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => console.log(values)} 
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View>
