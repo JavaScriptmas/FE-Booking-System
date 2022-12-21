@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const bookingApi = axios.create({
-  baseURL: "http://80.47.147.68/:3000/api/", //change local host to ip address 
+  baseURL: "http://localhost:3000/api", //change local host to ip address 
 });
 
 export const postUser = (username, body) => {
-  return bookingApi.post(`/users/${username}`, { body }).then((res) => {
-    console.log(res)
+  return bookingApi.post(`/users/${username}`, { password:body }).then((res) => {
+    console.log(res.data)
     return res.data
   })
 };
