@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from '@react-navigation/native';
+import * as yup from "yup";
 import {
   View,
   Image,
@@ -8,123 +8,179 @@ import {
   StyleSheet,
   Pressable,
   Text,
+  Alert,
+  ScrollView,
 } from "react-native";
 import { Formik } from "formik";
 
 const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Image style={styles.logo} source={require("./assets/Barber.png")} />
-
-        <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            username: "",
-            email: "",
-            phone: "",
-            password: "",
-            confirmPassword: "",
-          }}
-          onSubmit={(values) => console.log(values)}
-        >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
-            <View>
-              <TextInput
-                style={styles.username}
-                textAlign={"center"}
-                onChangeText={handleChange("firstName")}
-                onBlur={handleBlur("firstName")}
-                value={values.firstName}
-                placeholder="First Name..."
-                maxLength={20}
-                placeholderTextColor={"white"}
-              />
-              <TextInput
-                style={styles.username}
-                textAlign={"center"}
-                onChangeText={handleChange("lastName")}
-                onBlur={handleBlur("lastName")}
-                value={values.lastName}
-                placeholder="Last Name..."
-                maxLength={20}
-                placeholderTextColor={"white"}
-              />
-              <TextInput
-                style={styles.username}
-                textAlign={"center"}
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                value={values.username}
-                placeholder="Username..."
-                maxLength={20}
-                placeholderTextColor={"white"}
-              />
-              <TextInput
-                style={styles.username}
-                textAlign={"center"}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                placeholder="Email..."
-                maxLength={254}
-                placeholderTextColor={"white"}
-              />
-              <TextInput
-                style={styles.username}
-                textAlign={"center"}
-                onChangeText={handleChange("phone")}
-                onBlur={handleBlur("phone")}
-                value={values.phone}
-                placeholder="Phone Number..."
-                maxLength={15}
-                placeholderTextColor={"white"}
-              />
-              <TextInput
-                style={styles.password}
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={values.password}
-                placeholderTextColor={"white"}
-                secureTextEntry={true}
-                placeholder="Password"
-                maxLength={12}
-              />
-              <TextInput
-                style={styles.password}
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                value={values.confirmPassword}
-                placeholderTextColor={"white"}
-                secureTextEntry={true}
-                placeholder="Confirm Password"
-                maxLength={12}
-              />
-              <Pressable
-                onPress={handleSubmit}
-                style={styles.register}
-                textAlign={"center"}
-              >
-                <Text
+      <ScrollView>
+        <View>
+          <Image style={styles.logo} source={require("./assets/Barber.png")} />
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              username: "",
+              email: "",
+              phone: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            onSubmit={(values) => Alert.alert(JSON.stringify(values))}
+            validationSchema={yup.object().shape({
+              firstName: yup
+                .string()
+                .required("Please, provide your first name"),
+              lastName: yup
+                .string()
+                .required("Please, provide your last name"),
+              username: yup.string().required("Please, provide your username"),
+              email: yup.string().email().required("Please, provide your email"),
+              phone: yup.number().required("Please, provide your number"),
+              password: yup
+                .string()
+                .min(4)
+                .max(10, "Password should not excced 10 chars.")
+                .required( "Please provide your password"),
+              confirmPassword: yup
+                .string()
+                .min(4)
+                .max(10, "Password should not excced 10 chars.")
+                .required( "Please confirm your password")
+                .oneOf([yup.ref('password'), null], 'Must match "password" field value')
+            })}
+          >
+            {({
+              handleChange,
+              touched,
+              errors,
+              handleBlur,
+              handleSubmit,
+              values,
+            }) => (
+              <View>
+                <TextInput
+                  style={styles.username}
+                  textAlign={"center"}
+                  onChangeText={handleChange("firstName")}
+                  onBlur={handleBlur("firstName")}
+                  value={values.firstName}
+                  placeholder="First Name..."
+                  maxLength={20}
+                  placeholderTextColor={"white"}
+                />
+                {touched.firstName && errors.firstName && (
+                  <Text style={styles.errors}>{errors.firstName}</Text>
+                )}
+                <TextInput
+                  style={styles.username}
+                  textAlign={"center"}
+                  onChangeText={handleChange("lastName")}
+                  onBlur={handleBlur("lastName")}
+                  value={values.lastName}
+                  placeholder="Last Name..."
+                  maxLength={20}
+                  placeholderTextColor={"white"}
+                />
+                {touched.lastName && errors.lastName && (
+                  <Text style={styles.errors}>{errors.lastName}</Text>
+                )}
+                <TextInput
+                  style={styles.username}
+                  textAlign={"center"}
+                  onChangeText={handleChange("username")}
+                  onBlur={handleBlur("username")}
+                  value={values.username}
+                  placeholder="Username..."
+                  maxLength={20}
+                  placeholderTextColor={"white"}
+                />
+                {touched.username && errors.username && (
+                  <Text style={styles.errors}>{errors.username}</Text>
+                )}
+                <TextInput
+                  style={styles.username}
+                  textAlign={"center"}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  placeholder="Email..."
+                  maxLength={254}
+                  placeholderTextColor={"white"}
+                />
+                {touched.email && errors.email && (
+                  <Text style={styles.errors}>{errors.email}</Text>
+                )}
+                <TextInput
+                  style={styles.username}
+                  textAlign={"center"}
+                  onChangeText={handleChange("phone")}
+                  onBlur={handleBlur("phone")}
+                  value={values.phone}
+                  placeholder="Phone Number..."
+                  maxLength={15}
+                  placeholderTextColor={"white"}
+                  keyboardType="number-pad"
+                />
+                  {touched.phone && errors.phone && (
+                  <Text style={styles.errors}>{errors.phone}</Text>
+                )}
+                <TextInput
+                  style={styles.password}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  placeholderTextColor={"white"}
+                  secureTextEntry={true}
+                  placeholder="Password"
+                  maxLength={12}
+                />
+                  {touched.password && errors.password && (
+                  <Text style={styles.errors}>{errors.password}</Text>
+                )}
+                <TextInput
+                  style={styles.password}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                  placeholderTextColor={"white"}
+                  secureTextEntry={true}
+                  placeholder="Confirm Password"
+                  maxLength={12}
+                />
+                  {touched.confirmPassword && errors.confirmPassword && (
+                  <Text style={styles.errors}>{errors.confirmPassword}</Text>
+                )}
+                <Pressable
                   onPress={handleSubmit}
-                  type="submit"
-                  style={styles.registerText}
-                  title="Register"
+                  style={styles.register}
+                  textAlign={"center"}
                 >
-                  Register
-                </Text>
-              </Pressable>
-              <Pressable style={styles.loginLink}>
-                <Text style={styles.loginText} onPress={() =>
-                  navigation.navigate('Login')}>
-                  Already Registered?
-                </Text>
-              </Pressable>
-            </View>
-          )}
-        </Formik>
-      </View>
+                  <Text
+                    onPress={handleSubmit}
+                    type="submit"
+                    style={styles.registerText}
+                    title="Register"
+                  >
+                    Register
+                  </Text>
+                </Pressable>
+                <Pressable style={styles.loginLink}>
+                  <Text
+                    style={styles.loginText}
+                    onPress={() => navigation.navigate("Login")}
+                  >
+                    Already Registered?
+                  </Text>
+                </Pressable>
+              </View>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -190,7 +246,16 @@ const styles = StyleSheet.create({
   loginText: {
     color: "white",
     fontSize: 16,
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "center",
+  },
+
+  errors: {
+    fontSize: 14,
+    color: "white",
+    marginBottom: 5,
+    marginTop: -10,
+    textAlign: "center",
+    width: 240,
   },
 });

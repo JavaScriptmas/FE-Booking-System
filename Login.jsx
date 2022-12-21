@@ -12,10 +12,10 @@ import {
 } from "react-native";
 import Register from "./Register";
 import { Formik } from "formik";
-const Login = ({navigation}) => {
+const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View >
+      <View>
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
@@ -61,10 +61,10 @@ const Login = ({navigation}) => {
                 <Text style={styles.forgottenText}>Forgot Password?</Text>
               </Pressable>
               <Pressable style={styles.registerLink}>
-                <Text 
-                style={styles.registerText}
-                onPress={() =>
-                  navigation.navigate('Register')}>
+                <Text
+                  style={styles.registerText}
+                  onPress={() => navigation.navigate("Register")}
+                >
                   Not Registered? Press Here
                 </Text>
               </Pressable>
@@ -145,7 +145,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
-
-
 
 export default Login;
