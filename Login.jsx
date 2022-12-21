@@ -10,8 +10,9 @@ import {
   Pressable,
   Text,
 } from "react-native";
-import Register from "./Register";
 import { Formik } from "formik";
+import { postUser } from "./api.js";
+
 const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -19,7 +20,7 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => console.log(values)} 
+          onSubmit={(values) => postUser(values.username, values.password)} 
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
             <View>
@@ -32,6 +33,7 @@ const Login = ({ navigation }) => {
                 placeholder="username..."
                 maxLength={10}
                 placeholderTextColor={"white"}
+                autoCapitalize='none'
               />
               <TextInput
                 style={styles.password}
