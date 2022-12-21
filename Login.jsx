@@ -1,14 +1,15 @@
 import React from "react";
+import * as yup from "yup";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
   View,
   Image,
-  Button,
   TextInput,
   SafeAreaView,
   StyleSheet,
   Pressable,
   Text,
+  Alert,
 } from "react-native";
 import { Formik } from "formik";
 import { postUser } from "./api.js";
@@ -23,13 +24,22 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
+          userLogin
           onSubmit={(values) =>
             postUser(values.username, values.password).then(() => {
               navigation.navigate("Browse");
             })
           }
+
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => (
+          {({
+            handleChange,
+            touched,
+            errors,
+            handleBlur,
+            handleSubmit,
+            values,
+          }) => (
             <View>
               <TextInput
                 style={styles.username}
@@ -42,6 +52,9 @@ const Login = ({ navigation }) => {
                 placeholderTextColor={"white"}
                 autoCapitalize='none'
               />
+                {touched.username && errors.username && (
+                  <Text style={styles.errors}>{errors.username}</Text>
+                )}
               <TextInput
                 style={styles.password}
                 onChangeText={handleChange("password")}
@@ -52,6 +65,9 @@ const Login = ({ navigation }) => {
                 placeholder="password..."
                 maxLength={10}
               />
+                {touched.password && errors.password && (
+                  <Text style={styles.errors}>{errors.password}</Text>
+                )}
               <Pressable
                 onPress={handleSubmit}
                 style={styles.login}
@@ -152,6 +168,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     justifyContent: "center",
+  },
+  errors: {
+    fontSize: 14,
+    color: "white",
+    marginBottom: 5,
+    marginTop: -10,
+    textAlign: "center",
+    width: 240,
   },
 });
 
