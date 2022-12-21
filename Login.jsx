@@ -23,7 +23,10 @@ const Login = ({ navigation }) => {
         <Image style={styles.logo} source={require("./assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
-          onSubmit={(values) => postUser(values.username, values.password).then(navigation.navigate("Browse"))
+          onSubmit={(values) =>
+            postUser(values.username, values.password).then(() => {
+              navigation.navigate("Browse");
+            })
           }
         >
           {({ handleChange, handleBlur, handleSubmit, values }) => (
