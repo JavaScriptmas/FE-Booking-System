@@ -11,11 +11,11 @@ import {
   Pressable,
   Text,
   ScrollView,
-} from "react-native"
+} from "react-native";
 import { Formik } from "formik";
 import { postUser } from "./api.js";
-import { format, compareAsc } from 'date-fns';
-import { TimeSlots } from './TimeSlots';
+import { format, compareAsc } from "date-fns";
+import { TimeSlots } from "./TimeSlots";
 
 const Browse = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
@@ -30,21 +30,27 @@ const Browse = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo} source={require("./assets/Barber.png")} />
-        <ScrollView>
-      <View style={styles.browsecontainer}>
-          {appointments.map((appointment => {
+      <ScrollView>
+        <View style={styles.browsecontainer}>
+          {appointments.map((appointment) => {
             return (
-              <View>
-                <Pressable style={styles.id} onPress={() => navigation.navigate("TimeSlots")}>
-              <Text>{format(new Date(appointment._id), 'MM/dd/yyyy')}</Text>
-              <Text>{appointment.count}</Text>
+              <View key={appointment._id}>
+                <Pressable
+                  style={styles.id}
+                  onPress={() =>
+                    navigation.navigate("TimeSlots", {
+                      appointment: appointment._id,
+                    })
+                  }
+                >
+                  <Text>{format(new Date(appointment._id), "MM/dd/yyyy")}</Text>
+                  <Text>{appointment.count}</Text>
                 </Pressable>
               </View>
             );
-          })
-          )}
-          </View>
-          </ScrollView>
+          })}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -65,9 +71,9 @@ const styles = StyleSheet.create({
   browsecontainer: {
     width: "100%",
     height: 440,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     alignItems: "center",
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
   },
   id: {
@@ -75,10 +81,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     height: 100,
     width: 100,
-    backgroundColor: 'green',
+    backgroundColor: "green",
     margin: 10,
-    justifyContent: 'center',
-    textAlign: 'center',
+    justifyContent: "center",
+    textAlign: "center",
     alignItems: "center",
   },
 });
