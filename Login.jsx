@@ -24,6 +24,8 @@ const Login = ({ navigation }) => {
     setUser(res.user)
     console.log(user)
     navigation.navigate("Browse");
+  }).catch(() => {
+    Alert.alert("Invalid Login")
   });
   };
   return (
