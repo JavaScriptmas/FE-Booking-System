@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getAllAppointments } from "./api.js";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
@@ -16,9 +16,12 @@ import { Formik } from "formik";
 import { postUser } from "./api.js";
 import { format, compareAsc } from "date-fns";
 import { TimeSlots } from "./TimeSlots";
+import { UserContext } from "./context/UserContext.js";
 
 const Browse = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     getAllAppointments().then((results) => {
@@ -29,6 +32,9 @@ const Browse = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.usercontainer}>
+        <Text style={styles.test}>{user.username}</Text>
+      </View>
       <Image style={styles.logo} source={require("./assets/Barber.png")} />
       <ScrollView>
         <View style={styles.browsecontainer}>
@@ -86,6 +92,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
+  },
+  usercontainer: {
+    width: "100%",
+    flex: 1,
+  },
+  test: {
+    textAlign: "right",
+    color: "white",
+    fontSize: 20,
+    marginRight: 30,
   },
 });
 
