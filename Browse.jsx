@@ -30,6 +30,20 @@ const Browse = ({ navigation }) => {
     });
   }, []);
 
+  const getBackgroundColour = (available) => {
+    let color;
+    if ((available === 0)) {
+      color = "#ffa080";
+    } else if (available < 8)
+    {
+      color = "#ffc080";
+      // color = "#ffdf80";
+    } else {
+      color = "#a5d46a"
+    }
+    return color;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.usercontainer}>
@@ -42,15 +56,17 @@ const Browse = ({ navigation }) => {
             return (
               <View key={appointment._id}>
                 <Pressable
-                  style={styles.id}
+                  style={[styles.id, {backgroundColor: getBackgroundColour(appointment.count)}]}
                   onPress={() =>
                     navigation.navigate("TimeSlots", {
                       appointment: appointment._id,
                     })
                   }
                 >
-                  <Text>{format(new Date(appointment._id), "MM/dd/yyyy")}</Text>
-                  <Text>{appointment.count}</Text>
+                  {/* <Text>{format(new Date(appointment._id), "MM/dd/yyyy")}</Text> */}
+                  <Text style={styles.dateText}>{format(new Date(appointment._id), "E")}</Text>
+                  <Text style={styles.dateText}>{format(new Date(appointment._id), "dd-MMM")}</Text>
+                  <Text>{appointment.count} available</Text>
                 </Pressable>
               </View>
             );
@@ -103,6 +119,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginRight: 30,
   },
+  dateText: {
+    fontSize:22,
+    fontWeight: "bold",
+  }
 });
 
 export default Browse;
