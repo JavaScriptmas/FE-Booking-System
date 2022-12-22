@@ -8,6 +8,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 import Browse from "./Browse.jsx";
+import TimeSlots from './TimeSlots.jsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -71,6 +72,26 @@ export default function App() {
             tabBarIcon: ({ size, color }) => (
               <MaterialCommunityIcons
                 name="card-account-details"
+                color={"white"}
+                size={size}
+              />
+            ),
+          }}
+        />
+             <Tab.Screen
+          name="TimeSlots"
+          component={TimeSlots}
+          options={{
+            headerShown: false,
+            tabBarLabelStyle: { fontSize: 14 },
+            tabBarStyle: {
+              backgroundColor: "black",
+              paddingTop: 5,
+            },
+            tabBarActiveTintColor: "white",
+            tabBarIcon: ({ size, color }) => (
+              <MaterialCommunityIcons
+                name="calendar-month"
                 color={"white"}
                 size={size}
               />
