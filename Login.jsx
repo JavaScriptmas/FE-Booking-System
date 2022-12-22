@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import * as yup from "yup";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
@@ -12,12 +12,20 @@ import {
   Alert,
 } from "react-native";
 import { Formik } from "formik";
-import { postUser } from "./api.js";
-
+import { validateUser } from "./api.js";
+import { UserContext } from './context/UserContext.js'
 
 
 
 const Login = ({ navigation }) => {
+  // const [user, setUser] = useState({});
+  const { user, setUser } = useContext(UserContext)
+  const handleLogin = (values) => { validateUser(values.username, values.password).then((res) => {
+    setUser(res.user)
+    console.log(user)
+    navigation.navigate("Browse");
+  });
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -25,12 +33,7 @@ const Login = ({ navigation }) => {
         <Formik
           initialValues={{ username: "", password: "" }}
           userLogin
-          onSubmit={(values) =>
-            postUser(values.username, values.password).then(() => {
-              navigation.navigate("Browse");
-            })
-          }
-
+          onSubmit={(values) => handleLogin(values)}
         >
           {({
             handleChange,
