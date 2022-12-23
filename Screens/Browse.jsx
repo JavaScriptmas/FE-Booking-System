@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getAllAppointments } from "../api.js";
-import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
   View,
   Image,
@@ -30,13 +29,14 @@ const Browse = ({ navigation }) => {
   const getBackgroundColour = (available) => {
     let color;
     if ((available === 0)) {
-      color = "#ffa080";
+      // color = "#ffa080";
+      color = "#cc3232";
     } else if (available < 8)
     {
-      color = "#ffc080";
-      // color = "#ffdf80";
+      // color = "#ffc080";
+      color = "#db7b2b";
     } else {
-      color = "#a5d46a"
+      color = "#99c140"
     }
     return color;
   };
@@ -55,8 +55,7 @@ const Browse = ({ navigation }) => {
                 <Pressable
                   style={[styles.id, {backgroundColor: getBackgroundColour(appointment.count)}]}
                   onPress={() =>
-                    navigation.navigate("TimeSlots", {
-                      appointment: appointment._id,
+                    navigation.navigate("TimeSlots", {appointment: appointment._id,
                     })
                   }
                 >
@@ -83,13 +82,13 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logo: {
-    width: 250,
-    height: 200,
+    width: 125,
+    height: 100,
     marginBottom: 20,
   },
   browsecontainer: {
     width: "100%",
-    height: 440,
+    height: 500,
     flexWrap: "wrap",
     alignItems: "center",
     flexDirection: "row",

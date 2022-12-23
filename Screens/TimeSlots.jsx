@@ -19,6 +19,8 @@ import { getTimeSlotsByDate } from "../api.js";
 
 const TimeSlots = ({ navigation, route }) => {
   const displayDate = route.params.appointment.substring(0, 10);
+  const appointmentID = route.params.appointment
+
   const [date, setDate] = useState([]);
   useEffect(() => {
     getTimeSlotsByDate(displayDate).then((results) => {
@@ -30,9 +32,11 @@ const TimeSlots = ({ navigation, route }) => {
   const getBackgroundColour = (available) => {
     let color;
     if ((available === 1)) {
-      color = "green";
+      // color = "#a5d46a";
+      color = "#99c140";
     } else {
-      color = "red";
+      // color = "#ffa080";
+      color = "#cc3232";
     }
     return color;
   };
@@ -40,6 +44,7 @@ const TimeSlots = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo} source={require("../assets/Barber.png")} />
+      <Text style={styles.dateText}>{format(new Date(appointmentID), "EEEEEEEEE dd-MMM")}</Text>
       <ScrollView>
         <View style={styles.browsecontainer}>
           {date.map((timeSlot) => {
@@ -66,8 +71,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logo: {
-    width: 250,
-    height: 200,
+    width: 125,
+    height: 100,
     marginBottom: 20,
   },
   browsecontainer: {
@@ -79,16 +84,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   id: {
-    color: "black",
     textAlign: "center",
     height: 65,
     width: 300,
-    backgroundColor: 'white',
     margin: 10,
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
+    borderRadius: 10,
   },
+  dateText: {
+    fontSize:22,
+    fontWeight: "bold",
+    color: "white"
+  },
+
 });
 
 export default TimeSlots;

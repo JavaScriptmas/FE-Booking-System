@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Screens/Home.jsx";
 import { UserProvider } from "./context/UserContext";
-import TimeSlots from "./Screens/TimeSlots.jsx";
+// import TimeSlots from "./Screens/TimeSlots.jsx";
 import TabNavigator from "./Screens/TabNavigator.jsx";
 
 // const Stack = createNativeStackNavigator();
