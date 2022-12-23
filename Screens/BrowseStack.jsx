@@ -8,21 +8,8 @@ const Stack = createStackNavigator();
 export default function BrowseStack() {
   return (
     <Stack.Navigator initalRoutName="Browse">
-      <Stack.Screen
-        name="Browse"
-        component={Browse}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="TimeSlots"
-        component={TimeSlots}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Payment"
-        component={Payment}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="BrowseScreen" component={Browse} options={{headerShown: false}} />
+      <Stack.Screen name="TimeSlotsScreen" component={TimeSlots} options={{headerShown: false}}/>
     </Stack.Navigator>
   );
 }
