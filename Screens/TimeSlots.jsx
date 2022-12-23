@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllAppointments } from "./api.js";
+import { getAllAppointments } from "../api.js";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
   View,
@@ -13,9 +13,9 @@ import {
   ScrollView,
 } from "react-native";
 import { Formik } from "formik";
-import { postUser } from "./api.js";
+import { postUser } from "../api.js";
 import { format, compareAsc } from "date-fns";
-import { getTimeSlotsByDate } from "./api.js";
+import { getTimeSlotsByDate } from "../api.js";
 
 const TimeSlots = ({ navigation, route }) => {
   const displayDate = route.params.appointment.substring(0, 10);
@@ -26,7 +26,7 @@ const TimeSlots = ({ navigation, route }) => {
       return results;
     });
   }, [displayDate]);
-  console.log(date)
+  // console.log(date)
   const getBackgroundColour = (available) => {
     let color;
     if ((available === 1)) {
@@ -39,7 +39,7 @@ const TimeSlots = ({ navigation, route }) => {
   
   return (
     <SafeAreaView style={styles.container}>
-      <Image style={styles.logo} source={require("./assets/Barber.png")} />
+      <Image style={styles.logo} source={require("../assets/Barber.png")} />
       <ScrollView>
         <View style={styles.browsecontainer}>
           {date.map((timeSlot) => {
