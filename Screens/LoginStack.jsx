@@ -6,7 +6,7 @@ const Stack = createStackNavigator();
 export default function LoginStack() {
   return (
     <Stack.Navigator initalRoutName="Login">
-      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}  />
+      <Stack.Screen name="LoginScreen" component={Login} options={{headerShown: false}}  />
     </Stack.Navigator>
   );
 }
