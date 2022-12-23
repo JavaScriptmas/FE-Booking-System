@@ -4,16 +4,26 @@ import RegisterStack from "./RegisterStack";
 import BrowseStack from "./BrowseStack";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import * as React from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext.js";
 
 
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+
+  const { user } = useContext(UserContext);
+  console.log(user)
+
+
+
     return (
         <Tab.Navigator>
+
         <Tab.Screen
-          name="Login"
+          name={user.username ? 'Logout' : 'Login'}          
+          // name="Login"
           component={LoginStack}
           options={{
             headerShown: false,
@@ -27,7 +37,8 @@ export default function TabNavigator() {
             tabBarActiveTintColor: "white",
             tabBarIcon: ({ size, color }) => (
               <MaterialCommunityIcons
-                name="login"
+                // name="login"
+                name={user.username ? 'logout' : 'login'} 
                 color={"white"}
                 size={size}
               />
