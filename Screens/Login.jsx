@@ -13,20 +13,21 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import { validateUser } from "../api.js";
-import { UserContext } from '../context/UserContext.js'
-
-
+import { UserContext } from "../context/UserContext.js";
 
 const Login = ({ navigation }) => {
   // const [user, setUser] = useState({});
-  const { user, setUser } = useContext(UserContext)
-  const handleLogin = (values) => { validateUser(values.username, values.password).then((res) => {
-    setUser(res.user)
-    // console.log(user)
-    navigation.navigate("Browse");
-  }).catch(() => {
-    Alert.alert("Invalid Login")
-  });
+  const { user, setUser } = useContext(UserContext);
+  const handleLogin = (values) => {
+    validateUser(values.username, values.password)
+      .then((res) => {
+        setUser(res.user);
+        // console.log(user)
+        navigation.navigate("Browse");
+      })
+      .catch(() => {
+        Alert.alert("Invalid Login");
+      });
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -55,11 +56,11 @@ const Login = ({ navigation }) => {
                 placeholder="username..."
                 maxLength={10}
                 placeholderTextColor={"white"}
-                autoCapitalize='none'
+                autoCapitalize="none"
               />
-                {touched.username && errors.username && (
-                  <Text style={styles.errors}>{errors.username}</Text>
-                )}
+              {touched.username && errors.username && (
+                <Text style={styles.errors}>{errors.username}</Text>
+              )}
               <TextInput
                 style={styles.password}
                 onChangeText={handleChange("password")}
@@ -70,9 +71,9 @@ const Login = ({ navigation }) => {
                 placeholder="password..."
                 maxLength={10}
               />
-                {touched.password && errors.password && (
-                  <Text style={styles.errors}>{errors.password}</Text>
-                )}
+              {touched.password && errors.password && (
+                <Text style={styles.errors}>{errors.password}</Text>
+              )}
               <Pressable
                 onPress={handleSubmit}
                 style={styles.login}

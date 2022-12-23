@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Browse from './Browse';
-import TimeSlots from './TimeSlots';
+import Browse from "./Browse";
+import TimeSlots from "./TimeSlots";
+import Payment from "./Payment";
 
 const Stack = createStackNavigator();
 
