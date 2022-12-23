@@ -12,8 +12,8 @@ import {
   Alert,
 } from "react-native";
 import { Formik } from "formik";
-import { validateUser } from "./api.js";
-import { UserContext } from './context/UserContext.js'
+import { validateUser } from "../api.js";
+import { UserContext } from '../context/UserContext.js'
 
 
 
@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
   const { user, setUser } = useContext(UserContext)
   const handleLogin = (values) => { validateUser(values.username, values.password).then((res) => {
     setUser(res.user)
-    console.log(user)
+    // console.log(user)
     navigation.navigate("Browse");
   }).catch(() => {
     Alert.alert("Invalid Login")
@@ -31,7 +31,7 @@ const Login = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Image style={styles.logo} source={require("./assets/Barber.png")} />
+        <Image style={styles.logo} source={require("../assets/Barber.png")} />
         <Formik
           initialValues={{ username: "", password: "" }}
           userLogin

@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Formik } from "formik";
-import { postUserDetails } from "./api.js";
+import { postUserDetails } from "../api.js";
 
 const Register = ({ navigation }) => {
   const handleRegister = (values) => {
@@ -24,7 +24,7 @@ const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Image style={styles.logo} source={require("./assets/Barber.png")} />
+        <Image style={styles.logo} source={require("../assets/Barber.png")} />
         <Formik
           initialValues={{
             firstName: "",

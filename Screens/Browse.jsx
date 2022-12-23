@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getAllAppointments } from "./api.js";
+import { getAllAppointments } from "../api.js";
 import { NavigationContainer, StackActions } from "@react-navigation/native";
 import {
   View,
@@ -12,11 +12,8 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import { Formik } from "formik";
-import { postUser } from "./api.js";
 import { format, compareAsc } from "date-fns";
-import { TimeSlots } from "./TimeSlots";
-import { UserContext } from "./context/UserContext.js";
+import { UserContext } from "../context/UserContext.js";
 
 const Browse = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
@@ -47,9 +44,9 @@ const Browse = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.usercontainer}>
-        <Text style={styles.test}>{user.username}</Text>
+        <Text style={styles.loggedinuser}>{user.username}</Text>
       </View>
-      <Image style={styles.logo} source={require("./assets/Barber.png")} />
+      <Image style={styles.logo} source={require("../assets/Barber.png")} />
       <ScrollView>
         <View style={styles.browsecontainer}>
           {appointments.map((appointment) => {
@@ -103,17 +100,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     height: 100,
     width: 100,
-    backgroundColor: "green",
     margin: 10,
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
+    borderRadius: 10,
   },
   usercontainer: {
     width: "100%",
     flex: 1,
   },
-  test: {
+  loggedinuser: {
     textAlign: "right",
     color: "white",
     fontSize: 20,
