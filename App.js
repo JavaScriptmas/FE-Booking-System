@@ -6,16 +6,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from './Screens/Home.jsx';
 import { UserProvider } from './context/UserContext';
 import TimeSlots from './Screens/TimeSlots.jsx';
+import TabNavigator from './Screens/TabNavigator.jsx'
 
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
 
 
 export default function App() {
   return (
     <UserProvider>
     <NavigationContainer>
-      <Stack.Navigator>
+      <TabNavigator />
+      {/* <Stack.Navigator>
       <Stack.Screen
       name="Home" 
       component={Home}
@@ -26,7 +28,7 @@ export default function App() {
       component={TimeSlots}
       options={{headerShown: false}}
       />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
       </NavigationContainer>
       </UserProvider>
   );
