@@ -32,15 +32,13 @@ const TimeSlots = ({ navigation, route }) => {
   const getBackgroundColour = (available) => {
     let color;
     if ((available === 1)) {
-      // color = "#a5d46a";
-      color = "#99c140";
+      color = "#99c140"
     } else {
-      // color = "#ffa080";
       color = "#cc3232";
     }
     return color;
   };
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.logo} source={require("../assets/Barber.png")} />
@@ -50,7 +48,20 @@ const TimeSlots = ({ navigation, route }) => {
           {date.map((timeSlot) => {
             return (
               <View key={timeSlot._id}>
-                <Pressable style={[styles.id, {backgroundColor: getBackgroundColour(timeSlot.available)}]}>
+                <Pressable
+                  style={[
+                    styles.id,
+                    {
+                      backgroundColor: getBackgroundColour(timeSlot.available),
+                    },
+                  ]}
+                  onPress={() =>
+                    navigation.navigate("Payment", {
+                      timeSlot: timeSlot.time,
+                      date: displayDate,
+                    })
+                  }
+                >
                   <Text>{timeSlot.time}</Text>
                 </Pressable>
               </View>
