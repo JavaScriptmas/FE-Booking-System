@@ -1,68 +1,77 @@
-import React, { useState, useEffect } from "react";
-import { getAllAppointments } from "../api.js";
-import { NavigationContainer, StackActions } from "@react-navigation/native";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Image,
-  Button,
-  TextInput,
   SafeAreaView,
   StyleSheet,
   Pressable,
   Text,
   ScrollView,
+  Alert,
 } from "react-native";
-import { Formik } from "formik";
-import { postUser } from "../api.js";
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 import { getTimeSlotsByDate } from "../api.js";
+import { UserContext } from "../context/UserContext.js";
+import customStyles from "../styles/customStyles.js";
 
 const TimeSlots = ({ navigation, route }) => {
   const displayDate = route.params.appointment.substring(0, 10);
-  const appointmentID = route.params.appointment
+  const appointmentDate = route.params.appointment;
 
   const [date, setDate] = useState([]);
+  const { user } = useContext(UserContext);
+
+  const handelKeyPress = (timeSlot) => {
+    if (timeSlot.available) {
+      navigation.navigate("Payment", {
+        timeSlot: timeSlot,
+      });
+    } else {
+      Alert.alert(
+        "Information",
+        "Appointment Already Booked, please choose another time slot"
+      );
+    }
+  };
+
   useEffect(() => {
     getTimeSlotsByDate(displayDate).then((results) => {
       setDate(results);
       return results;
     });
   }, [displayDate]);
-  // console.log(date)
-  const getBackgroundColour = (available) => {
-    let color;
-    if ((available === 1)) {
-      color = "#99c140"
-    } else {
-      color = "#cc3232";
-    }
-    return color;
-  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/Barber.png")} />
-      <Text style={styles.dateText}>{format(new Date(appointmentID), "EEEEEEEEE dd-MMM")}</Text>
+    <SafeAreaView style={customStyles.container}>
+      <View style={customStyles.usercontainer}>
+        <Text style={customStyles.loggedinuser}>username: {user.username}</Text>
+      </View>
+      <Image
+        style={customStyles.logo}
+        source={require("../assets/Barber.png")}
+      />
+      <Text style={styles.dateText}>
+        {format(new Date(appointmentDate), "EEEEEEEEE dd-MMM")}
+      </Text>
       <ScrollView>
-        <View style={styles.browsecontainer}>
+        <View style={customStyles.browsecontainer}>
           {date.map((timeSlot) => {
             return (
               <View key={timeSlot._id}>
                 <Pressable
                   style={[
-                    styles.id,
+                    customStyles.id,
+                    customStyles.timeSlotid,
                     {
-                      backgroundColor: getBackgroundColour(timeSlot.available),
+                      backgroundColor:
+                        timeSlot.available === 1 ? "#99c140" : "#cc3232",
                     },
                   ]}
-                  onPress={() =>
-                    navigation.navigate("Payment", {
-                      timeSlot: timeSlot.time,
-                      date: displayDate,
-                    })
-                  }
+                  onPress={() => handelKeyPress(timeSlot)}
                 >
-                  <Text>{timeSlot.time}</Text>
+                  <Text style={[styles.dateText, { color: "black" }]}>
+                    {timeSlot.time}
+                  </Text>
                 </Pressable>
               </View>
             );
@@ -74,42 +83,11 @@ const TimeSlots = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "black",
-    width: "100%",
-  },
-  logo: {
-    width: 125,
-    height: 100,
-    marginBottom: 20,
-  },
-  browsecontainer: {
-    marginTop: 20,
-    width: "100%",
-    flexWrap: "wrap",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  id: {
-    textAlign: "center",
-    height: 65,
-    width: 300,
-    margin: 10,
-    justifyContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
   dateText: {
-    fontSize:22,
+    fontSize: 22,
     fontWeight: "bold",
-    color: "white"
+    color: "white",
   },
-
 });
 
 export default TimeSlots;

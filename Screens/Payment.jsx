@@ -1,14 +1,23 @@
-import { Button, Alert, Text, SafeAreaView, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import {
+  Alert,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  Pressable,
+} from "react-native";
+import React from "react";
 import { useStripe } from "@stripe/stripe-react-native";
-// const stripe = Stripe(
-//   "pk_test_51MFG9yHkGLOZR9cAMUkjeMdlKTPjXKTYoXXmtJB30nZrf8nh3JY92vrZTWiw8aXjTpqL7XYgJagRRRq1DHLM9JIm00t30d7PR4"
-// );
+import { format } from "date-fns";
+import customStyles from "../styles/customStyles";
 
 const Payment = ({ navigation, route }) => {
   const stripePay = useStripe();
-  const timeSlot = route.params.timeSlot;
-  const timeSlotDate = route.params.date;
+  const timeSlot = route.params.timeSlot.time;
+  const timeSlotDate = format(
+    new Date(route.params.timeSlot.date),
+    "EEEEEEEEE dd-MMM"
+  );
 
   const subscribe = async () => {
     try {
@@ -24,19 +33,28 @@ const Payment = ({ navigation, route }) => {
       );
 
       const data = await response.json();
-      console.log("response from stripe", data);
       if (!response.ok) return Alert.alert(data.message);
       const clientSecret = data.clientSecret;
 
       const initSheet = await stripePay.initPaymentSheet({
         paymentIntentClientSecret: clientSecret,
+        merchantDisplayName: "Barber Shop",
+        style: "alwaysDark",
       });
+
       if (initSheet.error) return Alert.alert(initSheet.error.message);
+
       const presentSheet = await stripePay.presentPaymentSheet({
         clientSecret,
       });
-      if (presentSheet.error) return Alert.alert(presentSheet.error.message);
-      Alert.alert("Payment Successful, thank you");
+
+      if (presentSheet.error) {
+        return Alert.alert(presentSheet.error.message);
+      } else {
+        navigation.navigate("SuccessPayment", {
+          timeSlot: route.params.timeSlot,
+        });
+      }
     } catch (error) {
       console.log(error);
       Alert.alert("something is wrong, please try later");
@@ -44,26 +62,68 @@ const Payment = ({ navigation, route }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.textStyle}>
-        {`You are booking an appointment at ${timeSlot} on ${timeSlotDate} for a haircut
-        please pay the deposit to confirm the booking`}
+    <SafeAreaView style={customStyles.container}>
+      <Image
+        style={customStyles.logo}
+        source={require("../assets/Barber.png")}
+      />
+      <Text style={customStyles.textStyle}>
+        {`You are booking an appointment at ${timeSlot} on ${timeSlotDate} for a haircut please pay the deposit to confirm the booking`}
       </Text>
-      <Button title="Pay £10 Deposit" onPress={subscribe} />
+      <Pressable
+        onPress={subscribe}
+        style={styles.register}
+        textAlign={"center"}
+      >
+        <Text
+          onPress={subscribe}
+          type="submit"
+          style={styles.registerText}
+          title="Register"
+        >
+          Pay £10 Deposit
+        </Text>
+      </Pressable>
+      <Pressable style={styles.loginLink}>
+        <Text
+          style={styles.loginText}
+          onPress={() =>
+            navigation.navigate("TimeSlots", {
+              appointment: route.params.timeSlot.date,
+            })
+          }
+        >
+          Cancel Booking
+        </Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  register: {
+    height: 40,
+    borderWidth: 2,
+    borderRadius: 25,
+    marginBottom: 15,
+    borderColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 240,
+    backgroundColor: "white",
+  },
+  registerText: {
+    fontSize: 20,
+  },
+  loginLink: {
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "black",
-    width: "100%",
   },
-  textStyle: {
+  loginText: {
     color: "white",
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
