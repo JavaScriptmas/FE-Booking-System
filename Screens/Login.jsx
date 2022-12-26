@@ -22,7 +22,6 @@ const Login = ({ navigation }) => {
     validateUser(values.username, values.password)
       .then((res) => {
         setUser(res.user);
-        // console.log(user)
         navigation.navigate("Browse");
       })
       .catch(() => {

@@ -11,11 +11,14 @@ import {
   Text,
   ScrollView,
 } from "react-native";
-import { format, compareAsc } from "date-fns";
+import { format } from "date-fns";
 import { UserContext } from "../context/UserContext.js";
+import { AppointmentContext } from "../context/AppointmentBooked.js";
+import customStyles from "../styles/customStyles.js";
 
 const Browse = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
+  const { appointmentBooked } = useContext(AppointmentContext);
 
   const { user } = useContext(UserContext);
 
@@ -24,44 +27,49 @@ const Browse = ({ navigation }) => {
       setAppointments(results);
       return results;
     });
-  }, []);
-
-  const getBackgroundColour = (available) => {
-    let color;
-    if ((available === 0)) {
-      // color = "#ffa080";
-      color = "#cc3232";
-    } else if (available < 8)
-    {
-      // color = "#ffc080";
-      color = "#db7b2b";
-    } else {
-      color = "#99c140"
-    }
-    return color;
-  };
+  }, [appointmentBooked]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.usercontainer}>
-        <Text style={styles.loggedinuser}>{user.username}</Text>
+    <SafeAreaView style={customStyles.container}>
+      <View style={customStyles.usercontainer}>
+        <Text style={customStyles.loggedinuser}>username: {user.username}</Text>
       </View>
-      <Image style={styles.logo} source={require("../assets/Barber.png")} />
+      <Image
+        style={customStyles.logo}
+        source={require("../assets/Barber.png")}
+      />
       <ScrollView>
-        <View style={styles.browsecontainer}>
+        <View style={customStyles.browsecontainer}>
           {appointments.map((appointment) => {
             return (
               <View key={appointment._id}>
                 <Pressable
-                  style={[styles.id, {backgroundColor: getBackgroundColour(appointment.count)}]}
-                  onPress={() =>
-                    navigation.navigate("TimeSlots", {appointment: appointment._id,
-                    })
-                  }
+                  style={[
+                    customStyles.id,
+                    {
+                      backgroundColor:
+                        appointment.count === 0
+                          ? "#cc3232"
+                          : appointment.count < 4
+                          ? "#de6573"
+                          : appointment.count < 8
+                          ? "#db7b2b"
+                          : "#8cb822",
+                    },
+                  ]}
+                  onPress={() => {
+                    navigation.navigate("TimeSlots", {
+                      appointment: appointment._id,
+                    });
+                  }}
                 >
                   {/* <Text>{format(new Date(appointment._id), "MM/dd/yyyy")}</Text> */}
-                  <Text style={styles.dateText}>{format(new Date(appointment._id), "E")}</Text>
-                  <Text style={styles.dateText}>{format(new Date(appointment._id), "dd-MMM")}</Text>
+                  <Text style={styles.dateText}>
+                    {format(new Date(appointment._id), "E")}
+                  </Text>
+                  <Text style={styles.dateText}>
+                    {format(new Date(appointment._id), "dd-MMM")}
+                  </Text>
                   <Text>{appointment.count} available</Text>
                 </Pressable>
               </View>
@@ -74,51 +82,10 @@ const Browse = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "black",
-    width: "100%",
-  },
-  logo: {
-    width: 125,
-    height: 100,
-    marginBottom: 20,
-  },
-  browsecontainer: {
-    width: "100%",
-    height: 500,
-    flexWrap: "wrap",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  id: {
-    color: "black",
-    textAlign: "center",
-    height: 100,
-    width: 100,
-    margin: 10,
-    justifyContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  usercontainer: {
-    width: "100%",
-    flex: 1,
-  },
-  loggedinuser: {
-    textAlign: "right",
-    color: "white",
-    fontSize: 20,
-    marginRight: 30,
-  },
   dateText: {
-    fontSize:22,
+    fontSize: 22,
     fontWeight: "bold",
-  }
+  },
 });
 
 export default Browse;
