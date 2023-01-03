@@ -95,7 +95,7 @@ const Login = ({ navigation }) => {
                   style={styles.registerText}
                   onPress={() => navigation.navigate("Register")}
                 >
-                  Not Registered? Press Here
+                  Not Registered?
                 </Text>
               </Pressable>
             </View>
