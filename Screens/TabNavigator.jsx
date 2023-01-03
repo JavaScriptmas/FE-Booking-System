@@ -15,7 +15,7 @@ export default function TabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={user.username ? "Logout" : "Login"}
+        name={user.username ? "Logout" : "Login/Register"}
         // name="Login"
         component={LoginStack}
         options={{
@@ -58,7 +58,7 @@ export default function TabNavigator() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Register"
         component={RegisterStack}
         options={{
@@ -77,7 +77,7 @@ export default function TabNavigator() {
             />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }

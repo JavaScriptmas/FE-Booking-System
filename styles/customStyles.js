@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const customStyles = StyleSheet.create({
   browsecontainer: {
     width: "100%",
-    height: 500,
+    height: "100%",
     flexWrap: "wrap",
     alignItems: "center",
     flexDirection: "row",
@@ -34,13 +34,18 @@ const customStyles = StyleSheet.create({
   logo: {
     width: 125,
     height: 100,
-    marginBottom: 20,
+    marginBottom: 10,
+    // backgroundColor: "red",
   },
   usercontainer: {
+    // backgroundColor: "red",
+    height: 50,
     width: "100%",
-    flex: 1,
+    // flex: 1,
   },
   loggedinuser: {
+    // backgroundColor: "red",
+    height: 50,
     textAlign: "center",
     color: "white",
     fontSize: 25,

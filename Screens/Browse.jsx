@@ -32,7 +32,7 @@ const Browse = ({ navigation }) => {
   return (
     <SafeAreaView style={customStyles.container}>
       <View style={customStyles.usercontainer}>
-        <Text style={customStyles.loggedinuser}>username: {user.username}</Text>
+        <Text style={customStyles.loggedinuser}>Welcome {user.firstName}</Text>
       </View>
       <Image
         style={customStyles.logo}
