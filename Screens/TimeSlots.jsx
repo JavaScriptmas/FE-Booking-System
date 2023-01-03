@@ -24,7 +24,10 @@ const TimeSlots = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
 
   const handelKeyPress = (timeSlot) => {
-    if (timeSlot.available) {
+    if (user.username === undefined) {
+      Alert.alert("Information", "Please login to book an appointment");
+      navigation.navigate("Login");
+    } else if (timeSlot.available) {
       navigation.navigate("Payment", {
         timeSlot: timeSlot,
       });
