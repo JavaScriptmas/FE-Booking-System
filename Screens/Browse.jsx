@@ -10,6 +10,7 @@ import {
   Pressable,
   Text,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import { format } from "date-fns";
 import { UserContext } from "../context/UserContext.js";
@@ -19,12 +20,16 @@ import customStyles from "../styles/customStyles.js";
 const Browse = ({ navigation }) => {
   const [appointments, setAppointments] = useState([]);
   const { appointmentBooked } = useContext(AppointmentContext);
+  const [loading, setLoading] = useState(false);
 
   const { user } = useContext(UserContext);
 
   useEffect(() => {
+    setLoading(true);
     getAllAppointments().then((results) => {
       setAppointments(results);
+
+      setLoading(false);
       return results;
     });
   }, [appointmentBooked]);
@@ -38,6 +43,7 @@ const Browse = ({ navigation }) => {
         style={customStyles.logo}
         source={require("../assets/Barber.png")}
       />
+      <ActivityIndicator animating={loading} size="large" color="#fff" />
       <ScrollView>
         <View style={customStyles.browsecontainer}>
           {appointments.map((appointment) => {

@@ -8,6 +8,7 @@ import {
   Text,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { format } from "date-fns";
 import { getTimeSlotsByDate } from "../api.js";
@@ -20,6 +21,7 @@ const TimeSlots = ({ navigation, route }) => {
 
   const [date, setDate] = useState([]);
   const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
   const handelKeyPress = (timeSlot) => {
     if (timeSlot.available) {
@@ -35,8 +37,10 @@ const TimeSlots = ({ navigation, route }) => {
   };
 
   useEffect(() => {
+    setLoading(true);
     getTimeSlotsByDate(displayDate).then((results) => {
       setDate(results);
+      setLoading(false);
       return results;
     });
   }, [displayDate]);
@@ -53,6 +57,7 @@ const TimeSlots = ({ navigation, route }) => {
       <Text style={styles.dateText}>
         {format(new Date(appointmentDate), "EEEEEEEEE dd-MMM")}
       </Text>
+      <ActivityIndicator animating={loading} size="large" color="#fff" />
       <ScrollView>
         <View style={customStyles.browsecontainer}>
           {date.map((timeSlot) => {
