@@ -24,6 +24,13 @@ export const getTimeSlotsByDate = (date) => {
   });
 };
 
+export const getAppointmentByUsername = (username) => {
+  return bookingApi.get(`/bookedAppointments/${username}`).then((res) => {
+    console.log(res.data.appointments);
+    return res.data.appointments;
+  });
+};
+
 export const postUserDetails = (body) => {
   return bookingApi.post(`/users`, body).then((res) => {
     return res.data.user;

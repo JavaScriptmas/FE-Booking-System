@@ -6,10 +6,16 @@ import { useContext } from "react";
 
 const Stack = createStackNavigator();
 
-export default function LoginStack() {
+export default function LoginStack({}) {
 
+  // name={user.username ? "Logout" : "Login/Register"}
+
+  
+  // const { user } = {user.username ? useContext(UserContext) : {}}
   const { user } = useContext(UserContext);
 
+  console.log(user.username)
+  // console.log(loggedin)
   return (
     
     <Stack.Navigator initalRouteName="Login">
