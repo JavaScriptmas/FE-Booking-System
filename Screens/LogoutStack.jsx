@@ -6,15 +6,15 @@ import { useContext } from "react";
 
 const Stack = createStackNavigator();
 
-export default function LoginStack() {
+export default function LogoutStack() {
 
   const { user } = useContext(UserContext);
 
   return (
     
-    <Stack.Navigator initalRouteName="Login">
-      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}  />
+    <Stack.Navigator initalRouteName="Register">
       <Stack.Screen name="Register" component={Register} options={{headerShown: false}}  />
+      <Stack.Screen name="Login" component={Login} options={{headerShown: false}}  />
     </Stack.Navigator>
   );
 }
