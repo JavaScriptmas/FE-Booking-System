@@ -3,11 +3,12 @@ import { StyleSheet } from "react-native";
 const customStyles = StyleSheet.create({
   browsecontainer: {
     width: "100%",
-    height: "100%",
+    height: "50%",
     flexWrap: "wrap",
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
+    // backgroundColor: "red",
   },
   container: {
     flex: 1,
@@ -28,8 +29,8 @@ const customStyles = StyleSheet.create({
     color: "black",
   },
   timeSlotid: {
-    height: 65,
-    width: 300,
+    height: 80,
+    width: 150,
   },
   logo: {
     width: 125,
@@ -53,12 +54,22 @@ const customStyles = StyleSheet.create({
   },
   textStyle: {
     color: "white",
-    marginBottom: 30,
+    // marginBottom: 30,
     marginLeft: 10,
     marginRight: 10,
     textAlign: "center",
     padding: 10,
     fontSize: 18,
+  },
+  appointmentHeader: {
+    color: "white",
+    marginBottom: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    textAlign: "center",
+    padding: 10,
+    fontSize: 28,
+    // backgroundColor: "red",
   },
 });
 
