@@ -26,7 +26,6 @@ export const getTimeSlotsByDate = (date) => {
 
 export const getAppointmentByUsername = (username) => {
   return bookingApi.get(`/bookedAppointments/${username}`).then((res) => {
-    console.log(res.data.appointments);
     return res.data.appointments;
   });
 };

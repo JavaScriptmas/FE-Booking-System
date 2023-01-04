@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
         navigation.navigate("Browse");
       })
       .catch(() => {
-        Alert.alert("Invalid Login");
+        Alert.alert("Invalid username or password");
       });
   };
   return (
@@ -87,9 +87,9 @@ const Login = ({ navigation }) => {
                   Login
                 </Text>
               </Pressable>
-              <Pressable style={styles.forgottenLink}>
+              {/* <Pressable style={styles.forgottenLink}>
                 <Text style={styles.forgottenText}>Forgot Password?</Text>
-              </Pressable>
+              </Pressable> */}
               <Pressable style={styles.registerLink}>
                 <Text
                   style={styles.registerText}
