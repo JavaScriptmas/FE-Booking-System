@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import * as yup from "yup";
 import {
   View,
@@ -13,10 +13,13 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 import { postUserDetails } from "../api.js";
+import { UserContext } from "../context/UserContext.js";
 
 const Register = ({ navigation }) => {
+  const { user, setUser } = useContext(UserContext);
   const handleRegister = (values) => {
     postUserDetails(values);
+    setUser(values);
     Alert.alert(`User ${values.username} has been created successfully`);
     navigation.navigate("Browse");
   };
@@ -128,10 +131,11 @@ const Register = ({ navigation }) => {
                 placeholder="Phone Number..."
                 maxLength={15}
                 placeholderTextColor={"white"}
-                keyboardType="number-pad"
               />
               {touched.phone && errors.phone && (
-                <Text style={styles.errors}>{errors.phone}</Text>
+                <Text style={styles.errors}>
+                  Please enter valid phone number
+                </Text>
               )}
               <TextInput
                 style={styles.password}

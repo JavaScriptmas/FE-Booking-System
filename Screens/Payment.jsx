@@ -56,7 +56,6 @@ const Payment = ({ navigation, route }) => {
         });
       }
     } catch (error) {
-      console.log(error);
       Alert.alert("something is wrong, please try later");
     }
   };

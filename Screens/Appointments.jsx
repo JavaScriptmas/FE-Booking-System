@@ -25,15 +25,18 @@ const Appointments = () => {
     setLoading(true);
     getAppointmentByUsername(user.username).then((results) => {
       setAppointments(results);
-
+      console.log(results)
       setLoading(false);
       return results;
+    }).catch((err) => {
+      setLoading(false);
+      console.log(err)
     });
+
   }, [appointmentBooked, user.username]);
 
   let currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
-  // console.log(appointments)
 
   return (
     <SafeAreaView style={customStyles.container}>
@@ -48,8 +51,9 @@ const Appointments = () => {
       <ActivityIndicator animating={loading} size="large" color="#fff" />
         {!user.username ? <View><Text style={customStyles.appointmentHeader}>Please log in to view your appointments</Text></View> : 
 <View>
-      <Text style={customStyles.appointmentHeader}>Future Appointments </Text>
-      <View style={customStyles.appointmentContainer}>
+      <Text style={customStyles.appointmentHeader}>Future Appointments </Text> 
+     {appointments && 
+     <View style={customStyles.appointmentContainer}>
         <FlatList
           keyExtractor={(item) => item._id}
           data={appointments}
@@ -66,6 +70,7 @@ const Appointments = () => {
           }}
         />
       </View>
+}
 
       <Text style={customStyles.appointmentHeader}>Past Appointments </Text>
       <View style={customStyles.appointmentContainer}>

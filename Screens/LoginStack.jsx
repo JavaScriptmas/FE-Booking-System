@@ -14,8 +14,6 @@ export default function LoginStack({}) {
   // const { user } = {user.username ? useContext(UserContext) : {}}
   const { user } = useContext(UserContext);
 
-  console.log(user.username)
-  // console.log(loggedin)
   return (
     
     <Stack.Navigator initalRouteName="Login">
