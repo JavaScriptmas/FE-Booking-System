@@ -63,13 +63,23 @@ const customStyles = StyleSheet.create({
   },
   appointmentHeader: {
     color: "white",
-    marginBottom: 30,
+    marginBottom: 10,
     marginLeft: 10,
     marginRight: 10,
     textAlign: "center",
     padding: 10,
     fontSize: 28,
     // backgroundColor: "red",
+  },
+  appointmentContainer: {
+    width: "100%",
+    height: 200,
+    flexWrap: "wrap",
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    overflow: "visible",
+    bounces: "false",
   },
 });
 
